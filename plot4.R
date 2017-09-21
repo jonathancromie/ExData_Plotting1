@@ -1,12 +1,18 @@
 source("functions.R")
 
 main <- function() {
+    # Load data into program
     loadData()
     
-    datetime <- with(dataset, as.POSIXct(paste(date, time), format="%d/%m/%Y %H:%M:%S"))
+    ## Switch graphics device to png
+    launchGraphicsDevice(name = "plot4.png")
     
+    ## Set layout to two rows and two columns
     par(mfrow = c(2,2))
     
+    ## Create plot
+    datetime <- with(dataset, as.POSIXct(paste(date, time), 
+                                         format="%d/%m/%Y %H:%M:%S"))
     with(dataset, {
         ## Plot Global Active Power
         plot(datetime, global_active_power, 
@@ -29,12 +35,13 @@ main <- function() {
                legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
         
         ## Plot Global Reactive Power
-        plot(datetime, global_reactive_power, type = "n")
+        plot(datetime, global_reactive_power, ylab = "Global_reactive_power",
+             type = "n")
         lines(datetime, global_reactive_power)
     })
     
-    ## Save to PNG file
-    saveToPNG("plot4.png")
+    ## Close graphics device
+    closeGraphicsDevice()
 }
 
 main()

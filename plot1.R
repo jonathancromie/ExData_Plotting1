@@ -1,15 +1,19 @@
 source("functions.R")
 
 main <- function() {
+    # Load data into program
     loadData()
     
-    par(mfrow = c(1,1))
+    ## Switch graphics device to png
+    launchGraphicsDevice(name = "plot1.png")
     
+    ## Create histogram
     hist(dataset$global_active_power, col = "red", 
          xlab = "Global Active Power (kilowatts)",
          main = "Global Active Power")
     
-    saveToPNG("plot1.png")
+    ## Close graphics device
+    closeGraphicsDevice()
 }
 
 main()
